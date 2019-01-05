@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "github.com/ServiceMeshLearn/Auth";
+
+import "google/protobuf/empty.proto";
+
+import "github.com/ServiceMeshLearn/Account/assets/account.proto";
+
+package auth_service;
+
+message AuthRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message AuthResponse {
+    string token = 1;
+    account.Account account = 2;
+}
+
+message ValidateRequest {
+    string token = 1;
+}
+
+service AuthService {
+    rpc Authenticate (AuthRequest) returns (AuthResponse) {}
+    rpc Validate (ValidateRequest) returns (google.protobuf.Empty) {}
+}
